@@ -2,6 +2,8 @@
 
     require_once __DIR__ . '/include/init.php';
     include __DIR__ . '/layout/top.php';
+
+    // include __DIR__ . 'upload.php';
     adminSecurity();
 
     $titre = $desc = $prix = $urlActuel = '';
@@ -28,20 +30,19 @@
             
             if(empty($_POST['prix'])) {
                 $errors[] = 'Un prix est obligatoire';
-            } elseif(is_string($_POST['prix'])) {
-                $errors[] = 'Vous devez saisir des chiffres';
-            } 
-
-            if(empty($_POST['url'])) {
-                $errors[] = 'Vous devez uploader une image';
             }
+
+            // if(empty($_POST['image'])) {
+            //     $errors[] = 'Vous devez uploader une image';
+            // }
 
             if(empty($_POST['cat'])) {
                 $errors[] = 'Vous devez choisir une catégorie';
             }
-
-            if(!empty($_FILES['url']['tmp_name'])) {
-                if($_FILES['url']['size'] > 1000000) {
+            echo $_FILES["image"]["tmp_name"];
+            if(!empty($_FILES['image']['tmp_name'])) {
+                echo "on avance";
+                if($_FILES['image']['size'] > 1000000) {
                     $errors[] = 'La photo ne doit pas faire plus de 1Mo';
                 }
 
@@ -51,21 +52,28 @@
                     'image/gif'
                 ];
 
-                if(!in_array($_FILES['url']['type'], $allowedMimeTypes)) {
+                if(!in_array($_FILES['image']['type'], $allowedMimeTypes)) {
                     $errors[] = 'La photo doit etre au format PNG, JPEG, GIF';
                 }
-            }
+            
         
 
-            if(empty($errors)) {
-                if(!empty($_FILES['url']['tmp_name'])) {
-                    $nomOriginal = $_FILES['url']['name'];
-                    $extension = substr($nomOriginal, strrpos($nomOriginal, '.'));
-                    $nomPhoto = $_POST['cat'] . $extension;
-
-                    move_uploaded_file($_FILES['url']['tmp_name'], PHOTO_DIR . $nomPhoto);
-                } else {
-                    $nomPhoto = $urlActuel;
+                if(empty($errors)) {
+                 echo 'OK';
+                    if(!empty($_FILES['image']['tmp_name'])) {
+                        echo "on y est presque";
+                        $target_dir = "uploads/";
+                        $target_file = $target_dir . basename($_FILES["image"]["name"]);
+                       
+                        // $extension = substr($nomOriginal, strrpos($nomOriginal, '.'));
+                        // $nomPhoto = $_POST['cat'] . $extension;
+                        // $urlActuel= $_FILES['url']['tmp_name'];
+                        // var_dump($urlActuel);
+                        move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+                        echo '<img src="' . $target_file .'"/>';
+                    }
+                }
+                     else{echo 'errrrrer';
                 }
                 
                     $queryAjout = <<<EOS
@@ -87,12 +95,12 @@ EOS;
                 $stmt->bindValue(':titre', $_POST['titre']);
                 $stmt->bindValue(':desc', $_POST['desc']);
                 $stmt->bindValue(':prix', $_POST['prix']);
-                $stmt->bindValue(':url', $nomPhoto);
+                $stmt->bindValue(':url', $_POST['url']);
                 $stmt->bindValue(':cat', $_POST['cat']);
                 $stmt->execute();
 
                 setFlashMessage('photo ajoutée');
-        }
+        } else {var_dump($_POST['image']);}
     }
 }
 
@@ -118,14 +126,14 @@ EOS;
     <div class="row">
         <?php
             echo '<pre>';
-            var_dump($errors);
+            var_dump($_FILES['url']['name']);
             echo '</pre>';
         ?>
     </div>
     <div class="row">
         <?php
             echo '<pre>';
-            var_dump($urlActuel);
+            var_dump($_FILES);
             echo '</pre>';
         ?>
     </div>
@@ -138,9 +146,9 @@ EOS;
     </div>
     <div class="row">
         <?php
-            echo '<pre>';
-            var_dump($_FILES['url']);
-            echo '</pre>';
+            // echo '<pre>';
+            // var_dump($_FILES['url']);
+            // echo '</pre>';
         ?>
     </div>
 
@@ -157,7 +165,7 @@ EOS;
     <div class="row pb-5">
         <div class="col-12 mt-5"> <!-- AJOUT PHOTO -->
             <h2 class="bg-info mt-5 p-2 text-center text-white">Ajout photos</h2>
-            <form method="post" class="bg-light p-5 rounded table-bordered">
+            <form  method="post" class="bg-light p-5 rounded table-bordered" enctype="multipart/form-data">
                 <div class="form-group">
                     <label>Titre :</label>
                     <input name="titre" value="<?= $titre; ?>" type="text" class="form-control" placeholder="prénom">
@@ -174,17 +182,24 @@ EOS;
 		            <div class="row d-flex align-items-center">
 		                <div class="col-12 col-md-6">
 		                    <label>Télécharger votre photo :</label>
-        		            <input class="text-left" type="file" name="url">
-                            <input type="hidden" value="<?= $urlActuel; ?>"></input>
+        		            <input class="text-left" type="file" name="image" value="<?= $urlActuel; ?>">
+
                             <?php
                                $src = (!empty($urlActuel))
-                                    ? PHOTO_WEB . $urlActuel  
+                                    ? $_FILES['image']['tmp_name']  
                                     : PHOTO_DEFAULT
                                     ;
                             ?>
 		                </div>
                         <div class="col-12 col-md-6">
-                            <img class="img-fluid img-thumbnail text-right" src="<?= $src; ?>" alt="">
+                            <!--><img class="img-fluid img-thumbnail text-right" src="" alt=""></!-->
+                           <?php
+                                if(!empty($_FILES['image']['tmp_name'])) {
+                                    $imageData = file_get_contents($_FILES['image']['tmp_name']);
+                                    // echo sprintf('<img src="data:image/png;base64,%s" />', base64_encode($imageData));
+                                    echo 'TEST';
+                                }
+                           ?>
                         </div>
 		            </div>
                 </div>
