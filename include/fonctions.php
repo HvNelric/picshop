@@ -32,6 +32,12 @@ function sanitizePost(){
     sanitizeArray($_POST);
 }
 
+function goAdminPage() {
+    if(isUserAdmin()) {
+        return 'page-admin.php';
+    }
+}
+
 function isUserConnected(){
     return isset($_SESSION['user']);
 }
@@ -56,7 +62,7 @@ function adminSecurity(){
             header('Location: ' . RACINE_WEB . 'connexion.php');
         } else {
             header('HTTP/1.1 403 Forbidden');
-            echo "Vous n'avez pas le droit d'accéder à cette page";
+            echo '<div class="alert alert-danger text-center"><h2>Vous n\'avez pas le droit d\'accéder à cette page</h2></div>';
         }
 
         die;

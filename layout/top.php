@@ -52,7 +52,7 @@
               <?php
                 if(isUserConnected()) :
               ?>
-              <a class="btn btn-info btn-sm my-2 my-sm-0" href="#"><?= getUserFullName(); ?></a>
+              <a class="btn btn-info btn-sm my-2 my-sm-0" href="<?= goAdminPage(); ?>"><?= getUserFullName(); ?></a>
               <form method="post">
                 <div class="form-group">
                   <button class="btn btn-sm btn-outline-info ml-1" name="deco" href="#">Déconnexion</button>

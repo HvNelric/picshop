@@ -2,10 +2,22 @@
 
     require_once __DIR__ . '/include/init.php';
     include __DIR__ . '/layout/top.php';
+    adminSecurity();
+
+    $titre = $desc = $prix = $photo = '';
+    $errors = [];
 
     $query = 'SELECT * FROM photo';
     $stmt = $pdo->query($query);
     $photos = $stmt->fetchAll();
+
+    if(!empty($_POST)) {
+        sanitizePost();
+        extract($_POST);
+        
+        
+
+    }
 
 ?>
 
@@ -27,8 +39,24 @@
                 </div>
                 <div class="form-group">
 		            <label>Photo</label>
-		            <input type="file" name="photo">
-	            </div>
+		            <input class="btn btn-primary" type="file" name="url">
+                </div>
+                <div class="form-group">
+                    <label>Catégorie</label>
+                    <select name="cat" class="form-control">
+                        <?php
+                            $query = 'SELECT * FROM categorie';
+                            $stmt = $pdo->query($query);
+                            $categories = $stmt->fetchAll();
+
+                            foreach($categories as $categorie) :
+                        ?>
+                        <option value="<?= $categorie['pk_id']; ?>"><?= $categorie['nom']; ?></option>
+                        <?php
+                            endforeach;
+                        ?>
+                    </select>
+                </div>
              </form>
          </div>
          <div class="col-12 mt-5">
