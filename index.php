@@ -7,10 +7,6 @@
     $stmt = $pdo->query($query);
     $photos = $stmt->fetchAll();
 
-    $src = (isset($photo['url']))
-        ? IMG_IMG . $photo['url']
-        : PHOTO_DEFAULT
-        ;
 ?>
 
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel"> <!-- SLIDER -->
@@ -88,6 +84,12 @@
                 ?>
                 <div class="col-6 col-md-4 p-2">
                     <div class="card">
+                        <?php
+                                 $src = (isset($photo['url']))
+                                        ? $photo['url']
+                                        : PHOTO_DEFAULT
+                                        ;
+                            ?>
                         <a href=""><img class="card-img-top" src="<?= $src; ?>" alt="Card image cap"></a>
                         <div class="card-body position-relative">
                             <div class="mycard-price">
