@@ -8,7 +8,7 @@
     $photos = $stmt->fetchAll();
 
 ?>
-
+    <link rel="stylesheet" href="css/picshop.css">
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel"> <!-- SLIDER -->
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -47,11 +47,11 @@
                         <div class="text-white haut-titre">
                             <strong>Yellow flowers</strong>
                         </div>
-                        <a class="nav-link text-white" href="">+ more info</a>
+                        <a class="nav-link text-white" href="detail-photo.php?id=<?= $photo['pkid']; ?>">+ more info</a>
                     </div>
                     <div class="col-6 p-5">
                         <div class="haut-img-cont">
-                            <img class="w-100" src="img/DSC_0434-min.jpg" alt="">
+                            <img class="w-100 img-thumbnail" src="img/DSC_0434-min.jpg" alt="">
                         </div>
                     </div>
                 </div>
@@ -65,11 +65,11 @@
                         <div class="text-white haut-titre">
                             <strong>Ridi market</strong>
                         </div>
-                        <a class="nav-link text-white" href="">+ more info</a>
+                        <a class="nav-link text-white" href="detail-photo.php?id=<?= $photo['pkid']; ?>">+ more info</a>
                     </div>
                     <div class="col-6 p-5">
                         <div class="haut-img-cont">
-                            <img class="w-100" src="img/bolga_0017.jpg" alt="">
+                            <img class="w-100 img-thumbnail" src="img/bolga_0017.jpg" alt="">
                         </div>
                     </div>
                 </div>
@@ -90,15 +90,15 @@
                                         : PHOTO_DEFAULT
                                         ;
                             ?>
-                        <a href=""><img class="card-img-top" src="<?= $src; ?>" alt="Card image cap"></a>
+                        <a href="detail-photo.php?id=<?= $photo['pkid']; ?>"><img class="card-img-top" src="<?= $src; ?>" alt="Card image cap"></a>
                         <div class="card-body position-relative">
                             <div class="mycard-price">
                                 <h3><?= $photo['prix']; ?>€</h3>
                             </div>
-                            <h5 class="card-title"><?= $photo['titre']; ?></h5>
+                                <h5 class="card-title mycard-title"><?= $photo['titre']; ?></h5>
                             <p class="card-text mycard-desc"><?= $photo['description']; ?></p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <a class="nav-link text-info pl-0" href="">+ more info</a>
+                                <a class="nav-link text-info pl-0" href="detail-photo.php?id=<?= $photo['pkid']; ?>">+ more info</a>
                                 <a href="#" class="btn btn-info">ajouter au panier</a>
                             </div>
                         </div>

@@ -204,7 +204,7 @@ EOS;
                         <td><?= $photo['url']; ?></td>
                         <td><?= $photo['fk']; ?></td>
                         <td class="text-right">
-                            <a class="btn btn-info mr-1" href="modif-photos.php?id=<?= $photo['pkid']; ?>">Modifier</a>
+                            <a class="btn btn-info mr-1" href="modif-photo.php?id=<?= $photo['pkid']; ?>">Modifier</a>
                             <form class="d-inline" method="post">
                                 <input type="hidden" name="del-id" value="<?= $photo['pkid']; ?>">
                                 <button name="btn-del" class="btn btn-danger">Supprimer</button>

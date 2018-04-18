@@ -1,4 +1,5 @@
-h1, h2{
+h1,
+h2 {
     margin: 50px 0;
 }
 
@@ -10,24 +11,29 @@ h1, h2{
     background: LightSeaGreen;
 }
 
-.haut-titre{
+.haut-titre {
     font-size: 2.8rem;
+    margin-bottom: 150px;
 }
 
-.haut-img-cont{
+.haut-img-cont {
     background: white;
-
     -webkit-box-shadow: 0px 10px 89px 0px rgba(50, 50, 50, 1);
     -moz-box-shadow: 0px 10px 89px 0px rgba(50, 50, 50, 1);
     box-shadow: 0px 10px 89px 0px rgba(50, 50, 50, 1);
 }
 
-.mycard-desc{
+.mycard-title {
+    min-height: 70px;
+    padding-top: 10px;
+}
+
+.mycard-desc {
     height: 50px;
     overflow: hidden;
 }
 
-.mycard-price{
+.mycard-price {
     position: absolute;
     background: DeepPink;
     color: white;
@@ -39,4 +45,11 @@ h1, h2{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+/***************** DETAIL-PAGE ********************/
+
+.myImg {
+    width: 100%;
 }
