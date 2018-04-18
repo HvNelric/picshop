@@ -47,9 +47,25 @@ h2 {
     align-items: center;
 }
 
+.mycard-price .price {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
 
 /***************** DETAIL-PAGE ********************/
 
+.myDetail {
+    background: black;
+    opacity: 0.5;
+}
+
 .myImg {
-    width: 100%;
+    height: 93vh;
+    padding: 20px;
+}
+
+.price {
+    background: deeppink;
 }

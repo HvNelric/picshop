@@ -6,7 +6,7 @@
     // include __DIR__ . 'upload.php';
     adminSecurity();
 
-    $titre = $desc = $prix = $urlActuel = '';
+    $titre = $desc = $prix = $imgActuel = '';
     $errors = [];
     
     // selection photos
@@ -141,16 +141,17 @@ EOS;
 		            <div class="row d-flex align-items-center">
 		                <div class="col-12 col-md-6">
 		                    <label>Télécharger votre photo :</label>
-        		            <input class="text-left" type="file" name="image" value="<?= $urlActuel; ?>">
+        		            <input id="inputImg" class="text-left" type="file" name="image" value="<?= $imgActuel; ?>">
                             <?php
                                $src = (!empty($_FILES['image']['tmp_name']))
                                     ? $target_file  
                                     : PHOTO_DEFAULT
                                     ;
+                            var_dump($imgActuel);
                             ?>
 		                </div>
                         <div class="col-12 col-md-6">
-                            <img class="img-fluid img-thumbnail text-right" src="<?= $src; ?>" alt="">
+                            <img id="afficheImg" class="img-fluid img-thumbnail text-right" src="<?= $src; ?>" alt="">
                         </div>
 		            </div>
                 </div>
@@ -219,3 +220,8 @@ EOS;
         </div><!-- /LISTE PHOTO -->
     </div>
 </div>
+
+
+<?php
+    include __DIR__ . '/layout/bottom.php';
+?>

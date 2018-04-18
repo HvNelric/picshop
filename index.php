@@ -93,7 +93,7 @@
                         <a href="detail-photo.php?id=<?= $photo['pkid']; ?>"><img class="card-img-top" src="<?= $src; ?>" alt="Card image cap"></a>
                         <div class="card-body position-relative">
                             <div class="mycard-price">
-                                <h3><?= $photo['prix']; ?>€</h3>
+                                <div class="price"><?= prixFR($photo['prix']); ?></div>
                             </div>
                                 <h5 class="card-title mycard-title"><?= $photo['titre']; ?></h5>
                             <p class="card-text mycard-desc"><?= $photo['description']; ?></p>
